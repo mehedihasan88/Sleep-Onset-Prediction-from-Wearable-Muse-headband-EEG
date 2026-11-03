@@ -1,0 +1,9 @@
+torch>=2.5
+numpy>=1.26
+neuralset==0.4.0
+neuralfetch==0.4.0
+neuraltrain==0.4.0
+neuralbench==0.4.0
+exca==0.5.29
+nemar-py>=0.3.1
+mne>=1.8

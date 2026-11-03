@@ -1,0 +1,48 @@
+experiment:
+  name: v3_full_recording
+  seed: 42
+model:
+  n_chans: 4
+  cnn_embedding: 128
+  spectral_embedding: 64
+  gru_hidden: 128
+  gru_layers: 1
+  dropout: 0.25
+  sampling_rate: 128.0
+  n_times: 640
+data:
+  window_seconds: 5.0
+  sequence_length: 24
+  input_channels: 4
+  channel_names: [TP9, AF7, AF8, TP10]
+  expected_train_records: 412
+  expected_validation_records: 88
+  expected_train_windows: 61303
+training:
+  max_epochs: 25
+  batch_size: 16
+  batch_size_strategy: complete_recordings
+  target_windows_per_step: 384
+  learning_rate: 0.0005
+  weight_decay: 0.0001
+  gradient_clip: 1.0
+  early_stopping_patience: 6
+  num_workers: 0
+  mixed_precision: true
+  time_budget_hours: 4.0
+references:
+  v2_best_validation_wbmae: 41.5193
+  v2_validation_bmae: 91.2596
+  v2_validation_plain_mae: 167.2021
+  v2_bin_0_40_mae: 16.477
+  v2_bin_40_90_mae: 35.731
+  v2_bin_90_300_mae: 85.792
+  v2_bin_300_600_mae: 227.038
+  v2_bin_0_40_bias: 11.531
+  v2_bin_40_90_bias: 8.626
+  v2_bin_90_300_bias: -24.165
+  v2_bin_300_600_bias: -207.770
+  v2_early_half_mae: 221.338
+  v2_late_half_mae: 112.996
+  v2_training_duration_minutes: 40.44
+  v2_peak_gpu_memory_mb: 434.2

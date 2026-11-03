@@ -1,0 +1,66 @@
+DualPathSleepNet(
+  (wave_norm): WindowNorm()
+  (cnn_branches): ModuleList(
+    (0): ConvBranch(
+      (net): Sequential(
+        (0): Conv1d(4, 32, kernel_size=(7,), stride=(1,), padding=(3,), bias=False)
+        (1): GroupNorm(4, 32, eps=1e-05, affine=True)
+        (2): GELU(approximate='none')
+        (3): AvgPool1d(kernel_size=(4,), stride=(4,), padding=(0,))
+        (4): Conv1d(32, 32, kernel_size=(7,), stride=(1,), padding=(3,), groups=32, bias=False)
+        (5): GroupNorm(4, 32, eps=1e-05, affine=True)
+        (6): GELU(approximate='none')
+        (7): AvgPool1d(kernel_size=(4,), stride=(4,), padding=(0,))
+      )
+    )
+    (1): ConvBranch(
+      (net): Sequential(
+        (0): Conv1d(4, 32, kernel_size=(15,), stride=(1,), padding=(7,), bias=False)
+        (1): GroupNorm(4, 32, eps=1e-05, affine=True)
+        (2): GELU(approximate='none')
+        (3): AvgPool1d(kernel_size=(4,), stride=(4,), padding=(0,))
+        (4): Conv1d(32, 32, kernel_size=(7,), stride=(1,), padding=(3,), groups=32, bias=False)
+        (5): GroupNorm(4, 32, eps=1e-05, affine=True)
+        (6): GELU(approximate='none')
+        (7): AvgPool1d(kernel_size=(4,), stride=(4,), padding=(0,))
+      )
+    )
+    (2): ConvBranch(
+      (net): Sequential(
+        (0): Conv1d(4, 32, kernel_size=(31,), stride=(1,), padding=(15,), bias=False)
+        (1): GroupNorm(4, 32, eps=1e-05, affine=True)
+        (2): GELU(approximate='none')
+        (3): AvgPool1d(kernel_size=(4,), stride=(4,), padding=(0,))
+        (4): Conv1d(32, 32, kernel_size=(7,), stride=(1,), padding=(3,), groups=32, bias=False)
+        (5): GroupNorm(4, 32, eps=1e-05, affine=True)
+        (6): GELU(approximate='none')
+        (7): AvgPool1d(kernel_size=(4,), stride=(4,), padding=(0,))
+      )
+    )
+  )
+  (cnn_fusion): Sequential(
+    (0): Conv1d(96, 128, kernel_size=(1,), stride=(1,), bias=False)
+    (1): GroupNorm(8, 128, eps=1e-05, affine=True)
+    (2): GELU(approximate='none')
+    (3): AdaptiveAvgPool1d(output_size=1)
+  )
+  (features): SpectralFeatureExtractor()
+  (spectral_mlp): Sequential(
+    (0): Linear(in_features=48, out_features=64, bias=True)
+    (1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+    (2): GELU(approximate='none')
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Linear(in_features=64, out_features=64, bias=True)
+  )
+  (spectral_projection): Linear(in_features=64, out_features=128, bias=True)
+  (gru): GRU(128, 128, batch_first=True)
+  (head): Sequential(
+    (0): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+    (1): Linear(in_features=128, out_features=64, bias=True)
+    (2): GELU(approximate='none')
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Linear(in_features=64, out_features=1, bias=True)
+  )
+)
+
+Trainable parameters: 143,777
